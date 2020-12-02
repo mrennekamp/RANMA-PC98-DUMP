@@ -1,0 +1,62 @@
+FILES=30
+BUFFERS=6,0
+FCBS=1,0
+DOS=HIGH,UMB
+LASTDRIVE=Q
+SHELL=A:\COMMAND.COM A:\ /P /E:1024
+
+; ===Memory shenanigans===
+; --Standard memory drivers--
+REM DEVICE=A:\DOS\HIMEM.SYS /TESTMEM:OFF
+REM DEVICE=A:\DOS\EMM386.EXE /UMB /T=A:\DOS\EXTDSWAP.SYS /HIGHSCAN
+
+; --VEM486 memory driver--
+;   [safe option]
+DEVICE=A:\TOOLS\VEM486.EXE /U
+;   [for np2]
+REM DEVICE=A:\TOOLS\VEM486.EXE /U=A5-A7,D1-DF,E8-F4
+;   (load 86vol and MGC into UMB #1, everything else into #3)
+;   [alternate for np2, IDE BIOS moved]
+REM DEVICE=A:\TOOLS\VEM486.EXE /U=D1-DF,E8-F3 /M=D8:A5,D9:A6,DA:A7,DC:F4
+;   (load everything into UMB#2)
+;   [real hardware, PC-9821A/B/C series, IDE BIOS moved]
+REM DEVICE=A:\TOOLS\VEM486.EXE /U=D0-DF,E8-F3 /M=D8:A5,D9:A6,DA:A7,DC:F4
+;   (load everything into UMB #1 or #2)
+
+; --VEM486 EMM driver--
+REM DEVICEHIGH=A:\TOOLS\VEMEMM.SYS
+
+; ===CD-ROM device drivers===
+; --For Anex86 emulator--
+REM DEVICE=A:\TOOLS\CDX.SYS /D:CD_101
+
+; --For Neko Project II emulator and derivatives--
+REM DEVICEHIGH=A:\TOOLS\NECCDD.SYS /D:CD_101
+
+; --For T98-Next emulator--
+; Change SCSI ID to /I0 if it doesn't work.
+; Also set the same SCSI ID number in the SCSI4CD.NHW plugin.
+REM DEVICE=A:\TOOLS\CDDRV.SYS /D:CD_101 /I1
+
+; --For real hardware--
+; PC-98GSÅ^PC-9821Å^CeÅ^Ap2Å^AnÅ^XaC10W internal
+REM DEVICE=A:\TOOLS\NECCDB.SYS /D:CD_101
+
+; PC-CD103Å^60Å^60DÅ^60FÅ^170Å^170NÅ^180Å^180XÅ^600Å^800 external
+REM DEVICE=A:\TOOLS\NECCDB.SYS /D:CD_101
+
+; PC-9821Cs2Å^XsÅ^XpÅ^XnÅ^XaC9WÅ^Ce2Å^XtÅ^As3Å^Ap3Å^CbÅ^Xf internal]
+REM DEVICE=A:\TOOLS\NECCDD.SYS /D:CD_101
+
+; PC-CD60D external
+REM DEVICE=A:\TOOLS\NECCDD.SYS /D:CD_101
+
+; PC-9821Ct20Å^V200M7 internal
+REM DEVICE=A:\TOOLS\NECCDJ.SYS /D:CD_101
+
+; PC-9821Rs20Å^Rv20Å^RsáU26Å^RváU26 internal
+REM DEVICE=A:\TOOLS\NECCDK.SYS /D:CD_101
+
+; All other internal CD-ROM/CD-R/DVD-ROM drives
+REM DEVICE=A:\TOOLS\NECCDM.SYS /D:CD_101
+
